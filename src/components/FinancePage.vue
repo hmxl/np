@@ -1,4 +1,5 @@
 <template>
+    <!-- 财务看板 -->
     <div class='container'>
         <div class='top-box'>
             <div class="top-left">
@@ -8,7 +9,7 @@
                         <div v-for="(item, index) in btns1" :key="index" :class="active1==index?'active':''" @click='changeChart1(index)'>{{item}}</div>
                     </div>
                 </div>
-                <new-chart :screenWidth='screenWidth' :chartData='chartData1' no='1' class='chart1'></new-chart>
+                <new-chart :screenWidth='screenWidth' :screenHeight='screenHeight' :chartData='chartData1' no='1' class='chart1'></new-chart>
             </div>
             <div class="top-right">
                 <div class="btns">
@@ -17,7 +18,7 @@
                         <div v-for="(item, index) in btns2" :key="index" :class="active2==index?'active':''" @click='changeChart2(index)'>{{item}}</div>
                     </div>
                 </div>
-                <new-chart :screenWidth='screenWidth' :chartData='chartData2' no='2' class='chart2'></new-chart>
+                <new-chart :screenWidth='screenWidth' :screenHeight='screenHeight' :chartData='chartData2' no='2' class='chart2'></new-chart>
             </div>
             
         </div>
@@ -28,7 +29,7 @@
                     <div v-for="(item, index) in btns3" :key="index" :class="active3==index?'active':''" @click='changeChart3(index)'>{{item}}</div>
                 </div>
             </div>
-            <new-chart :screenWidth='screenWidth' :chartData='chartData3' no='3' class='chart3'></new-chart>
+            <new-chart :screenWidth='screenWidth' :screenHeight='screenHeight' :chartData='chartData3' no='3' class='chart3'></new-chart>
         </div>
         
     </div>
@@ -41,7 +42,9 @@
   export default {
     data() {
         return {
+            // 获取页面宽度
             screenWidth:document.body.clientWidth,
+            screenHeight:document.documentElement.clientHeight,
             btns1:["尽调平台数","立项平台数","财务流程委派","预算编制"],
             btns2:["尽调平台数","立项平台数","财务流程委派","预算编制"],
             btns3:["安徽","山东","江苏","浙江","江西","湖北","山西","河北"],
@@ -56,25 +59,26 @@
                     axisLine: {
                         lineStyle: {
                             type: 'solid',
-                            color: '#5d83da',//左边线的颜色
+                            color: '#5d83da',//轴线的颜色
                             width:'1'//坐标线的宽度
                         },
-                        symbol:['none', 'arrow'],
-                        symbolSize:[8,12],
-                        symbolOffset:[0,10],
+                        symbol:['none', 'arrow'],//箭头
+                        symbolSize:[8,12],//箭头尺寸
+                        symbolOffset:[0,10],//箭头偏移
                     }, 
+                    // 刻度方向
                     axisTick: {
                         inside:true
                     },
                 },
                 yAxis: {
                     type: "value",
-                    name:"(家)",
-                    nameLocation:"end",
+                    name:"(家)",//单位
+                    nameLocation:"end",//单位位置
                     axisLine: {
                         lineStyle: {
                             type: 'solid',
-                            color: '#5d83da',//左边线的颜色
+                            color: '#5d83da',//轴线的颜色
                             width:'1'//坐标线的宽度
                         },
                         symbol:['none', 'arrow'],
@@ -84,8 +88,10 @@
                     axisTick: {
                         inside:true
                     },
+                    // 去除横向网格线
                     splitLine:{show: false}
                 },
+                // 图表数据
                 series: [{
                     type: "bar",
                     barWidth:20,
@@ -96,13 +102,14 @@
                             borderColor:'#3c61ba'
                         }
                     },
-                    barGap: '-100%',
+                    barGap: '-100%',//偏移与另一柱状图重叠
                     silent: true,
                     },
                     {
                     type: "bar",
                     barWidth:20,
                     data:[50,61,10,15,25,40],
+                    // 柱状图柱体
                     itemStyle: {
                         normal: {
                             color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
@@ -116,6 +123,7 @@
                             ])
                         }
                     },
+                    // 显示数据
                     label:{
                         show:true,
                         position:"top",
@@ -228,17 +236,27 @@
                 }]
             },
             chartData3: {
+                // 表格整体样式
                 textStyle:{
                     color:"#5d83da"
                 },
+                // 图例
                 legend: {
-                    top:"10%",
+                    top:"5%",
                     right:'10%',
                     textStyle:{
                         color:"#5d83da"
                     }
                 },
                 tooltip: {},
+                // 图表整体尺寸
+                grid:{
+                    top:50,
+                    bottom:30,
+                    x:60,
+                    x2:60,
+                },
+                // 切换数据
                 dataset: {
                     source: [{
                         product: "平台1",
@@ -651,11 +669,14 @@
         },
     },
     mounted(){
-        const that = this
+        // 窗口宽度变化调用方法
+        const that = this;
         window.onresize = () => {
             return (() => {
                 window.screenWidth = document.body.clientWidth
+                window.screenHeight = document.documentElement.clientHeight
                 that.screenWidth = window.screenWidth
+                that.screenHeight = window.screenHeight
             })()
         }
     }
@@ -666,13 +687,17 @@
 <style lang="less" scoped>
     .container {
         width: 100%;
+        position: absolute;
+        top:12%;
+        bottom: 2%;
         >.top-box {
             width: 98%;
             margin:auto;
             display: flex;
+            height: 50%;
             >.top-left{ 
                 width: 40%;
-                height: 300px;
+                height: 100%;
                 padding: 10px;
                 box-sizing: border-box;
                 background-color:rgba(77, 133, 255, 0.1);
@@ -685,7 +710,7 @@
             }
             >.top-right{
                 width: 60%;
-                height: 300px;
+                height: 100%;
                 padding: 10px;
                 box-sizing: border-box;
                 background-color:rgba(77, 133, 255, 0.1);
@@ -700,7 +725,7 @@
         }
         >.bottom-box{
             width: 98%;
-            height: 300px;
+            height: 50%;
             margin:auto;
             padding: 10px;
             box-sizing: border-box;
@@ -717,7 +742,7 @@
 </style>
 <style lang="less" scoped>
     .btns{
-        width: 95%;
+        width: 100%;
         margin:auto;
         display: flex;
         justify-content:space-between;
