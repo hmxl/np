@@ -50,8 +50,8 @@
 </template>
 <script>
 import NewChart from '../baseComponents/NewChart'
-import echarts from "echarts"
-import "../../node_modules/echarts/map/js/province/shandong"
+// import echarts from "echarts"
+// import "../../node_modules/echarts/map/js/province/shandong"
 import "../../node_modules/echarts/map/js/china"
 export default {
     data(){
@@ -124,13 +124,18 @@ export default {
                 series:[
                     {
                         name:"已覆盖省份",
-                        type: 'scatter',
+                        type: 'effectScatter',
                         coordinateSystem: 'geo',
-                        symbolSize: 10,
+                        rippleEffect: {
+                            period:4,
+                            scale: 3,
+                            brushType: 'stroke',
+                        },
+                        symbolSize: 5,
                         large: true,
                         itemStyle: {
                             normal: {
-                                shadowBlur: 20,
+                                shadowBlur: 10,
                                 shadowColor: '#00e4ff',
                                 color: '#fff',
                                 shadowOffsetX:2
@@ -154,7 +159,7 @@ export default {
                     },
                     {
                         name:"2019年规划中",
-                        type: 'scatter',
+                        type: 'effectScatter',
                         coordinateSystem: 'geo',
                         symbolSize: 10,
                         large: true,

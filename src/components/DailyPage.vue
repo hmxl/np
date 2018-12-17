@@ -10,12 +10,15 @@
                 </div>
             </div>
             <!-- 图表区域 -->
-            <div class="region" v-for="(item, index) in region" :key="index">
-                <div class="region-name">
-                    {{item}}
+            <div class="region-box">
+                <div class="region" v-for="(item, index) in region" :key="index">
+                    <div class="region-name">
+                        {{item}}
+                    </div>
+                    <new-chart :chartData='chartData[index]' :no="index" :screenWidth="screenWidth"  :screenHeight='screenHeight' class="region-chart"></new-chart>
                 </div>
-                <new-chart :chartData='chartData[index]' :no="index" :screenWidth="screenWidth"  :screenHeight='screenHeight' class="region-chart"></new-chart>
             </div>
+            
         </div>
     </div>
 </template>
@@ -37,16 +40,30 @@ export default {
                     tooltip : {
                         trigger: 'axis',
                         axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
                         },
+                        // formatter: '{b} <br /> {a0}: {c0}<br />{a1}: {c1} <br /> {a2}: {c2}' + "%"
+                        formatter:function(params, ticket, callback){
+                            // console.log(params)
+                            let schedule1 = params[1].data==4?"完成":params[1].data+"/4";
+                            let schedule2 = params[3].data==4?"完成":params[3].data+"/4";
+                            let schedule3 = params[5].data==4?"完成":params[5].data+"/4";
+                            let schedule4 = params[7].data==4?"完成":params[7].data+"/4";
+                            let schedule5 = params[9].data==4?"完成":params[9].data+"/4";
+                            let schedule6 = params[11].data==4?"完成":params[11].data+"/4";
+                            let schedule7 = params[13].data==4?"完成":params[13].data+"/4";
+                            let schedule8 = params[15].data==4?"完成":params[15].data+"/4";
+                            let schedule9 = params[17].data==2?"完成":params[17].data+"/4";
+                            return params[0].name + "<br/>" + "尽调发起: " + schedule1 + " 尽调: " + schedule2 + " 立项: " + schedule3 
+                                    + " 合同签订: " + schedule4 +"<br/>" + " 预算: " + schedule5 + " 资质: " + schedule6 + " 人员: " + schedule7 
+                                    + " 系统配置: " + schedule8 + " 正式上线: " + schedule9;
+                        }
                     },
                     grid: {
-                        left: '11%',
-                        right: 0,
+                        left: '12%',
+                        right: '0.5%',
                         top:"5%",
                         bottom: '5%',
-                        x:20,
-                        x2:1,
                     },
                     xAxis:  {
                         show:false,
@@ -60,8 +77,11 @@ export default {
                         axisTick:{
                             show:false
                         },
-                        data: ["泰安钰达物流有限责任公司","临沂市沂蒙山水电器有限公司","淄博京创电器销售有限公司",
-                                "淄博汇通国际物流有限公司","青岛速迈物流有限公司","威海宏辉物流有限公司","泰安市豪其物流有限公司"],
+                        data: ["泰安钰达物流有限责任公司","临沂市沂蒙山水电器有限公司","淄博京创电器销售有限公司","淄博汇通国际物流有限公司",
+                                "青岛速迈物流有限公司","威海宏辉物流有限公司","泰安市豪其物流有限公司","威海宏辉物流有限公司",
+                                "泰安市豪其物流有限公司","威海宏辉物流有限公司","泰安市豪其物流有限公司","威海宏辉物流有限公司",
+                                "泰安市豪其物流有限公司","泰安钰达物流有限责任公司","临沂市沂蒙山水电器有限公司","淄博京创电器销售有限公司",
+                                "青岛速迈物流有限公司","威海宏辉物流有限公司","泰安市豪其物流有限公司","威海宏辉物流有限公司"],
                         inverse:true,//反向坐标轴
                         axisLabel:{
                             interval: 0,//标签设置为全部显示
@@ -93,7 +113,8 @@ export default {
                             type: "bar",
                             barWidth:10,
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -110,12 +131,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff",
                             },
-                            data: [4, 4, 4, 4, 4, 4, 4]//每个进度4个步骤
+                            data: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],//每个进度4个步骤
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -131,12 +154,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [4, 4, 4, 4, 3, 4, 0]
+                            data: [4, 4, 4, 4, 3, 4, 0, 4, 4, 4,
+                                    4, 0, 4, 4, 4, 0, 0, 0, 4, 4]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -152,12 +177,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [4, 3, 4, 4, 0, 4, 0]
+                            data: [4, 3, 4, 4, 0, 4, 0, 4, 3, 2,
+                                    4, 4, 4, 0, 3, 4, 4, 0, 0, 4]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -173,12 +200,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [3, 0, 4, 4, 0, 4, 0]
+                            data: [3, 0, 4, 4, 0, 4, 0, 4, 0, 0,
+                                    3, 4, 4, 0, 0, 3, 4, 0, 0, 4]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -194,12 +223,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [0, 0, 4, 3, 0, 4, 0]
+                            data: [0, 0, 4, 3, 0, 4, 0, 4, 0, 0,
+                                    0, 4, 4, 0, 0, 0, 4, 0, 0, 3]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -215,12 +246,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [0, 0, 4, 0, 0, 4, 0]
+                            data: [0, 0, 4, 0, 0, 4, 0, 3, 0, 0,
+                                    0, 2, 4, 0, 0, 0, 4, 0, 0, 0]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -236,12 +269,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [0, 0, 3, 0, 0, 4, 0]
+                            data: [0, 0, 3, 0, 0, 4, 0, 0, 0, 0,
+                                    0, 0, 4, 0, 0, 0, 2, 0, 0, 0]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -257,12 +292,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [0, 0, 0, 0, 0, 4, 0]
+                            data: [0, 0, 0, 0, 0, 4, 0, 0, 0, 0,
+                                    0, 0, 4, 0, 0, 0, 0, 0, 0, 0]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[2,2,2,2,2,2,2],
+                            data:[2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -279,7 +316,8 @@ export default {
                                 color:"#0097ff"
                             },
                             barCategoryGap: "80%",
-                            data: [0, 0, 0, 0, 0, 2, 0]
+                            data: [0, 0, 0, 0, 0, 2, 0, 0, 0, 0,
+                                    0, 0, 2, 0, 0, 0, 0, 0, 0, 0]
                         },
                     ]
                 },
@@ -290,16 +328,29 @@ export default {
                     tooltip : {
                         trigger: 'axis',
                         axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
                         },
+                        formatter:function(params, ticket, callback){
+                            // console.log(params)
+                            let schedule1 = params[1].data==4?"完成":params[1].data+"/4";
+                            let schedule2 = params[3].data==4?"完成":params[3].data+"/4";
+                            let schedule3 = params[5].data==4?"完成":params[5].data+"/4";
+                            let schedule4 = params[7].data==4?"完成":params[7].data+"/4";
+                            let schedule5 = params[9].data==4?"完成":params[9].data+"/4";
+                            let schedule6 = params[11].data==4?"完成":params[11].data+"/4";
+                            let schedule7 = params[13].data==4?"完成":params[13].data+"/4";
+                            let schedule8 = params[15].data==4?"完成":params[15].data+"/4";
+                            let schedule9 = params[17].data==2?"完成":params[17].data+"/4";
+                            return params[0].name + "<br/>" + "尽调发起: " + schedule1 + " 尽调: " + schedule2 + " 立项: " + schedule3 
+                                    + " 合同签订: " + schedule4 +"<br/>" + " 预算: " + schedule5 + " 资质: " + schedule6 + " 人员: " + schedule7 
+                                    + " 系统配置: " + schedule8 + " 正式上线: " + schedule9;
+                        }
                     },
                     grid: {
-                        left: '11%',
-                        right: 0,
+                        left: '12%',
+                        right: '0.5%',
                         top:"5%",
                         bottom: '5%',
-                        x:20,
-                        x2:5,
                     },
                     xAxis:  {
                         show:false,
@@ -313,8 +364,11 @@ export default {
                         axisTick:{
                             show:false
                         },
-                        data: ["滁州市众泰运输有限公司", "安徽际通物流有限公司", "安徽众商共享供应链管理有限公司", 
-                                "宿州一日达物流有限公司", "宣城易达货运代理有限公司", "合肥远行物流有限公司", "阜阳多邦供应链管理有限公司"],
+                        data: ["滁州市众泰运输有限公司", "安徽际通物流有限公司", "安徽众商共享供应链管理有限公司", "宿州一日达物流有限公司",
+                                "宣城易达货运代理有限公司", "合肥远行物流有限公司", "阜阳多邦供应链管理有限公司", "安徽众商共享供应链管理有限公司",
+                                "宣城易达货运代理有限公司", "合肥远行物流有限公司", "阜阳多邦供应链管理有限公司", "安徽众商共享供应链管理有限公司",
+                                "滁州市众泰运输有限公司", "安徽际通物流有限公司", "安徽众商共享供应链管理有限公司", "宿州一日达物流有限公司",
+                                "安徽际通物流有限公司", "安徽众商共享供应链管理有限公司", "合肥远行物流有限公司", "宣城易达货运代理有限公司"],
                         inverse:true,//反向坐标轴
                         axisLabel:{
                             interval: 0,//标签设置为全部显示
@@ -345,7 +399,8 @@ export default {
                             type: "bar",
                             barWidth:10,
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -362,12 +417,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff",
                             },
-                            data: [4, 4, 4, 4, 4, 4, 4]//每个进度4个步骤
+                            data: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],//每个进度4个步骤
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -383,12 +440,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [4, 4, 4, 4, 3, 4, 0]
+                            data: [4, 4, 4, 4, 3, 4, 0, 4, 4, 4,
+                                    4, 0, 4, 4, 4, 0, 0, 0, 4, 4]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -404,12 +463,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [4, 3, 4, 4, 0, 4, 0]
+                            data: [4, 3, 4, 4, 0, 4, 0, 4, 3, 2,
+                                    4, 4, 4, 0, 3, 4, 4, 0, 0, 4]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -425,12 +486,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [3, 0, 4, 4, 0, 4, 0]
+                            data: [3, 0, 4, 4, 0, 4, 0, 4, 0, 0,
+                                    3, 4, 4, 0, 0, 3, 4, 0, 0, 4]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -446,12 +509,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [0, 0, 4, 3, 0, 4, 0]
+                            data: [0, 0, 4, 3, 0, 4, 0, 4, 0, 0,
+                                    0, 4, 4, 0, 0, 0, 4, 0, 0, 3]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -467,12 +532,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [0, 0, 4, 0, 0, 4, 0]
+                            data: [0, 0, 4, 0, 0, 4, 0, 3, 0, 0,
+                                    0, 2, 4, 0, 0, 0, 4, 0, 0, 0]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -488,12 +555,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [0, 0, 3, 0, 0, 4, 0]
+                            data: [0, 0, 3, 0, 0, 4, 0, 0, 0, 0,
+                                    0, 0, 4, 0, 0, 0, 2, 0, 0, 0]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[4,4,4,4,4,4,4],
+                            data:[4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                    4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -509,12 +578,14 @@ export default {
                             itemStyle:{
                                 color:"#0097ff"
                             },
-                            data: [0, 0, 0, 0, 0, 4, 0]
+                            data: [0, 0, 0, 0, 0, 4, 0, 0, 0, 0,
+                                    0, 0, 4, 0, 0, 0, 0, 0, 0, 0]
                         },
                         {
                             type: "bar",
                             stack: '底色',
-                            data:[2,2,2,2,2,2,2],
+                            data:[2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
                             itemStyle: {
                                 normal: {
                                     color: '#001c67',
@@ -531,7 +602,8 @@ export default {
                                 color:"#0097ff"
                             },
                             barCategoryGap: "80%",
-                            data: [0, 0, 0, 0, 0, 2, 0]
+                            data: [0, 0, 0, 0, 0, 2, 0, 0, 0, 0,
+                                    0, 0, 2, 0, 0, 0, 0, 0, 0, 0]
                         },
                     ]
                 }
@@ -571,6 +643,7 @@ export default {
             >.progress-rate{
                 width: 100%;
                 display:flex;
+                // position: fixed;
                 >div{
                     width: 10%;
                     padding: 8px;
@@ -592,27 +665,34 @@ export default {
                     width: 5%;
                 }
             }
-            .region{
-                display: flex;
-                justify-content: space-between;
+            >.region-box{
                 width: 100%;
-                padding:2px 0px;
-                height: 40%;
-                >.region-name{
-                    height: 100%;
-                    background: #214ac1;
-                    font-size: 15px;
-                    text-align: center;
-                    writing-mode: tb-rl;
-                    padding:0 1%; 
-                    color: #0f99eb;
-                    font-weight: 700;
-                }
-                >.region-chart{
-                    width: 96%;
-                    height: 100%;
+                height: 90%;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                .region{
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    padding:2px 0px;
+                    height:120%;
+                    >.region-name{
+                        height: 100%;
+                        background: #214ac1;
+                        font-size: 15px;
+                        text-align: center;
+                        writing-mode: tb-rl;
+                        padding:0 1%; 
+                        color: #0f99eb;
+                        font-weight: 700;
+                    }
+                    >.region-chart{
+                        width: 100%;
+                        height: 100%;
+                    }
                 }
             }
+            
         }
     }
 </style>

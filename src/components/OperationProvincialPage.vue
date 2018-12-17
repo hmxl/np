@@ -19,7 +19,7 @@
                         </div>
                     </div>
                 </div>
-                <new-chart :screenWidth='screenWidth' :screenHeight='screenHeight' :chartData='chartData1' no='1' class='chart1'></new-chart>
+                <new-chart :screenWidth='screenWidth' :screenHeight='screenHeight' :registerMapData='registerMapData' :chartData='chartData1' no='1' class='chart1'></new-chart>
             </div>
             <div class="top-right">
                 <div class="pie-box">
@@ -50,15 +50,17 @@
 </template>
 <script>
 import NewChart from '../baseComponents/NewChart'
-import echarts from "echarts"
-import "../../node_modules/echarts/map/js/province/shandong"
-import "../../node_modules/echarts/map/js/china"
+// import echarts from "echarts"
+// import "../../node_modules/echarts/map/js/province/shandong"
+// import "../../node_modules/echarts/map/js/china"
 export default {
     data(){
         return{
             screenWidth:document.body.clientWidth,
             screenHeight:document.documentElement.clientHeight,
             provincial:'',
+            loadMap:'',
+            registerMapData:{},
             btns4:['订单量月度k线','交易额月度k线'],
             btns5:['订单量日k线','交易额日k线'],
             active4:0,
@@ -125,7 +127,11 @@ export default {
                 series:[
                     {
                         name:"已覆盖地区",
-                        type: 'scatter',
+                        type: 'effectScatter',
+                        rippleEffect: {
+                            period:4,
+                            scale: 3,
+                        },
                         coordinateSystem: 'geo',
                         symbolSize: 10,
                         large: true,
@@ -151,7 +157,7 @@ export default {
                     },
                     {
                         name:"2019年规划中",
-                        type: 'scatter',
+                        type: 'effectScatter',
                         coordinateSystem: 'geo',
                         symbolSize: 10,
                         large: true,
@@ -514,6 +520,10 @@ export default {
             })()
         };
         this.provincial = this.$route.query.provincial;
+        this.loadMap = this.$route.query.loadMap;
+        this.chartData1.geo.map = this.$route.query.provincial;
+        this.loadProvincialMap(this.$route.query.loadMap);
+        
     },
     methods:{
         changeChart4(no){
@@ -533,6 +543,14 @@ export default {
                 this.chartData5.series[0].data = [40, 33, 56, 54, 22, 35, 65, 97, 45, 12, 56, 89, 35, 65, 96, 
                                                     35, 74, 83, 94, 42, 75, 35, 74, 46, 24, 27, 75, 43, 36, 56];
             }
+        },
+        loadProvincialMap(procincial){
+            // 获取省级地图自定义配置
+            this.$http.get('../../static/map/province/'+procincial+'.json').then((res)=>{
+                var d = [];
+                // console.log(res.body)
+                this.registerMapData = res.body;
+            })
         }
     }
 }

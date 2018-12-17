@@ -3,7 +3,7 @@
         <!-- 头部标题 -->
         <top-title class="title"></top-title>
         <!-- 导航菜单 -->
-        <el-dropdown class="router-nav" @command="handleCommand">
+        <el-dropdown class="router-nav" @command="handleCommand" trigger="click">
             <span class="el-dropdown-link">
                 {{currentNav}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
@@ -26,7 +26,7 @@
         },
         data(){
             return{
-                nav:["日报看板","财务看板","运营看板","发展看板"],
+                nav:["日报看板","发展看板","运营看板","财务看板"],
                 currentNav:"日报看板",
             }
         },
@@ -35,11 +35,11 @@
                 if(command == "0"){
                     this.$router.push({path: "/daily"});
                 }else if(command == "1"){
-                    this.$router.push({path: "/finance"});
+                    this.$router.push({path: "/development-national"});
                 }else if(command == "2"){
                     this.$router.push({path: "/operation-national"});
                 }else if(command == "3"){
-                    this.$router.push({path: "/development-national"});
+                    this.$router.push({path: "/finance"});
                 }
                 this.currentNav = this.nav[command];
             }
