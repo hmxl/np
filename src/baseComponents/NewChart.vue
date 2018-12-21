@@ -70,28 +70,18 @@
             // 绑定点击事件
             bindSth(options){
                 let that = this;
-                // 判断是否为国家地图,则绑定点击事件
-                if(options.geo != undefined && options.geo.map == 'china'){
+                // 判断是否为国家或省级地图,则绑定点击事件
+                if(options.geo != undefined && (options.geo.map == 'china' || options.geo.map in this.provinces )){
                     let myChart = this.$echarts.init(document.getElementById('myechart'+this.no));
                     myChart.on('click', function(params){
+                        that.bindTo(params.name);
                         // 判断可否跳转
-                        for(let a in options.series[0].data){
-                            // console.log(options.series[0].data[a].name)
-                            if(options.series[0].data[a].name == params.name){
-                                that.bindTo(options.series[0].data[a].name);
-                            }
-                        }
-                    });
-                }else if(options.geo != undefined && options.geo.map in this.provinces){
-                    let myChart = this.$echarts.init(document.getElementById('myechart'+this.no));
-                    myChart.on('click', function(params){
-                        // 判断可否跳转
-                        for(let a in options.series[0].data){
-                            // console.log(options.series[0].data[a].name)
-                            if(options.series[0].data[a].name == params.name){
-                                that.bindTo(options.series[0].data[a].name);
-                            }
-                        }
+                        // for(let a in options.series[0].data){
+                        //     // console.log(options.series[0].data[a].name)
+                        //     if(options.series[0].data[a].name == params.name){
+                        //         that.bindTo(options.series[0].data[a].name);
+                        //     }
+                        // }
                     });
                 }
             },

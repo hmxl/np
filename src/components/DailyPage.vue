@@ -18,7 +18,6 @@
                     <new-chart :chartData='chartData[index]' :no="index" :screenWidth="screenWidth"  :screenHeight='screenHeight' class="region-chart"></new-chart>
                 </div>
             </div>
-            
         </div>
     </div>
 </template>

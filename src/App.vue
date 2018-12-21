@@ -43,6 +43,18 @@
                 }
                 this.currentNav = this.nav[command];
             }
+        },
+        mounted(){
+            let a = this.$route.path;
+            if(a.indexOf("daily")==1){
+                this.currentNav = "日报看板";
+            }else if(a.indexOf("development") == 1){
+                this.currentNav = "发展看板";
+            }else if(a.indexOf("operation") == 1){
+                this.currentNav = "运营看板";
+            }else{
+                this.currentNav = "财务看板";
+            }
         }
     }
 

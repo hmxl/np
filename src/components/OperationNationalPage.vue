@@ -241,6 +241,41 @@ export default {
                                     color:"#6cfabe"
                                 }
                             },
+                            {value:60, name:'XX市',
+                                itemStyle:{
+                                    // color:"#6cfabe"
+                                }
+                            },
+                            {value:20, name:'XX1市',
+                                itemStyle:{
+                                    // color:"#6cfabe"
+                                }
+                            },
+                            {value:20, name:'XX2市',
+                                itemStyle:{
+                                    // color:"#6cfabe"
+                                }
+                            },
+                            {value:20, name:'XX3市',
+                                itemStyle:{
+                                    // color:"#6cfabe"
+                                }
+                            },
+                            {value:20, name:'XX4市',
+                                itemStyle:{
+                                    // color:"#6cfabe"
+                                }
+                            },
+                            {value:20, name:'XX5市',
+                                itemStyle:{
+                                    // color:"#6cfabe"
+                                }
+                            },
+                            {value:20, name:'XX6市',
+                                itemStyle:{
+                                    // color:"#6cfabe"
+                                }
+                            },
                         ],
                         roseType: 'radius',
                         labelLine: {
