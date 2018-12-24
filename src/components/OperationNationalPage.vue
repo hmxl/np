@@ -7,14 +7,14 @@
                     <div>
                         <p>合约运力</p>
                         <div>
-                            <span>65</span>
+                            <span>{{driverCnt.contract}}</span>
                             <span>辆</span>
                         </div>
                     </div>
                     <div>
                         <p>临时运力</p>
                         <div>
-                            <span>65</span>
+                            <span>{{driverCnt.temporary}}</span>
                             <span>辆</span>
                         </div>
                     </div>
@@ -62,6 +62,7 @@ export default {
             btns5:['订单量日k线','交易额日k线'],
             active4:0,
             active5:0,
+            driverCnt:{},
             chartData1:{
                 legend: {//图例组件
                     orient: 'vertical',
@@ -196,11 +197,14 @@ export default {
                 },
                 legend: {
                     orient: 'horizontal',
+                    // orient: 'vertical',
                     textStyle:{
                         color:'#5d83da'
                     },
                     bottom:0,
                     left:"center",
+                    // x:"left",
+                    // top:"5%",
                     itemWidth:10,
                     itemHeight:10,
                     textStyle:{
@@ -213,73 +217,12 @@ export default {
                         name:'今日订单',
                         type:'pie',
                         radius : '70%',
+                        // radius: ['50%', '70%'],
                         center: ['50%', '45%'],
-                        data:[
-                            {value:60, name:'青岛市',
-                                itemStyle:{
-                                    color: {
-                                        type: 'linear',
-                                        x: 0,
-                                        y: 0,
-                                        x2: 1,
-                                        y2: 1,
-                                        colorStops: [{
-                                            offset: 0, color: '#0d90b4' // 0% 处的颜色
-                                        }, {
-                                            offset: 1, color: '#06bfd7' // 100% 处的颜色
-                                        }],
-                                    }
-                                }
-                            },
-                            {value:30, name:'泰安市',
-                                itemStyle:{
-                                    color:"#de9a00"
-                                }
-                            },
-                            {value:40, name:'潍坊市',
-                                itemStyle:{
-                                    color:"#6cfabe"
-                                }
-                            },
-                            {value:60, name:'XX市',
-                                itemStyle:{
-                                    // color:"#6cfabe"
-                                }
-                            },
-                            {value:20, name:'XX1市',
-                                itemStyle:{
-                                    // color:"#6cfabe"
-                                }
-                            },
-                            {value:20, name:'XX2市',
-                                itemStyle:{
-                                    // color:"#6cfabe"
-                                }
-                            },
-                            {value:20, name:'XX3市',
-                                itemStyle:{
-                                    // color:"#6cfabe"
-                                }
-                            },
-                            {value:20, name:'XX4市',
-                                itemStyle:{
-                                    // color:"#6cfabe"
-                                }
-                            },
-                            {value:20, name:'XX5市',
-                                itemStyle:{
-                                    // color:"#6cfabe"
-                                }
-                            },
-                            {value:20, name:'XX6市',
-                                itemStyle:{
-                                    // color:"#6cfabe"
-                                }
-                            },
-                        ],
+                        data:[],
                         roseType: 'radius',
                         labelLine: {
-                            show:false
+                            show:false,
                         },
                         label: {
                             normal: {
@@ -301,7 +244,27 @@ export default {
                             return Math.random() * 200;
                         }
                     }
-                ]
+                ],
+                color:[{ type: 'linear',
+                        x: 0,
+                        y: 0,
+                        x2: 1,
+                        y2: 1,
+                        colorStops: [{
+                            offset: 0, color: '#0d90b4' // 0% 处的颜色
+                            }, {
+                            offset: 1, color: '#06bfd7' // 100% 处的颜色
+                            }],},
+                        { type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 1,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: '#e3a700' // 0% 处的颜色
+                            }, {
+                                offset: 1, color: '#de9a00' // 100% 处的颜色
+                            }],}]
             },
             chartData3:{
                 tooltip : {
@@ -328,28 +291,10 @@ export default {
                         type:'pie',
                         radius : '70%',
                         center: ['50%', '45%'],
-                        data:[
-                            {value:600, name:'安徽省',itemStyle:{
-                                color: {
-                                    type: 'linear',
-                                    x: 0,
-                                    y: 0,
-                                    x2: 1,
-                                    y2: 0,
-                                    colorStops: [{
-                                        offset: 0, color: '#0d90b4' // 0% 处的颜色
-                                    }, {
-                                        offset: 1, color: '#06bfd7' // 100% 处的颜色
-                                    }],
-                                }
-                            }},
-                            {value:400, name:'山东省',itemStyle:{
-                                color:"#de9a00"
-                            }},
-                        ],
+                        data:[],
                         roseType: 'radius',
                         labelLine: {
-                            show:false
+                            show:false,
                         },
                         label: {
                             normal: {
@@ -365,13 +310,28 @@ export default {
                                 }
                             },
                         },
-                        animationType: 'scale',
-                        animationEasing: 'elasticOut',
-                        animationDelay: function (idx) {
-                            return Math.random() * 200;
-                        }
                     }
-                ]
+                ],
+                color:[{ type: 'linear',
+                        x: 0,
+                        y: 0,
+                        x2: 1,
+                        y2: 1,
+                        colorStops: [{
+                            offset: 0, color: '#0d90b4' // 0% 处的颜色
+                            }, {
+                            offset: 1, color: '#06bfd7' // 100% 处的颜色
+                            }],},
+                        { type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 1,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: '#e3a700' // 0% 处的颜色
+                            }, {
+                                offset: 1, color: '#de9a00' // 100% 处的颜色
+                            }],}]
             },
             chartData4:{
                 textStyle:{
@@ -386,7 +346,7 @@ export default {
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['7月', '8月', '9月', '10月', '11月', '12月'],
+                    data: [],
                     axisLine: {
                         lineStyle: {
                             type: 'solid',
@@ -406,7 +366,7 @@ export default {
                 },
                 yAxis: {
                     type: 'value',
-                    name:"(万元)",
+                    name:"(元)",
                     nameLocation:"end",
                     axisLine: {
                         lineStyle: {
@@ -459,6 +419,8 @@ export default {
                     }
                 }]
             },
+            chartData4Order:[],
+            chartData4Money:[],
             chartData5:{
                 textStyle:{
                     color:"#5579ca",
@@ -472,9 +434,7 @@ export default {
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-                            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-                            '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
+                    data: [],
                     axisLine: {
                         lineStyle: {
                             type: 'solid',
@@ -494,7 +454,7 @@ export default {
                 },
                 yAxis: {
                     type: 'value',
-                    name:"%",
+                    name:"元",
                     nameLocation:"end",
                     axisLine: {
                         lineStyle: {
@@ -547,7 +507,9 @@ export default {
                             }
                     }
                 }]
-            }
+            },
+            chartData5Order:[],
+            chartData5Money:[],
         }
     },
     components:{
@@ -564,24 +526,62 @@ export default {
                 that.screenHeight = window.screenHeight
             })()
         }
+        this.getData();
+        setInterval(()=>{this.getData()},10*60*1000);
     },
     methods:{
+        getData(){
+            this.$http.get(process.env.BASE_URL+"/api/operation/order").then((res)=>{
+                // console.log(res);
+                let data = res.data;
+                //运力
+                this.driverCnt = data.driverCnt
+                //日订单
+                let dayOrder = [];
+                for(let i in data.dayOrder){
+                    let a = { value:data.dayOrder[i], name:i}
+                    dayOrder.push(a);
+                }
+                this.chartData2.series[0].data = dayOrder;
+                //月订单
+                let monthOrder = [];
+                for(let i in data.monthOrder){
+                    let a = { value:data.monthOrder[i], name:i}
+                    monthOrder.push(a);
+                }
+                this.chartData3.series[0].data = monthOrder;
+                // 月k线
+                this.chartData4.xAxis.data = data.kLineMonth.times;
+                this.chartData4.series[0].data = data.kLineMonth.orders;
+                this.chartData4.yAxis.name = "(笔)";
+                this.chartData4Order = data.kLineMonth.orders;
+                this.chartData4Money = data.kLineMonth.moneys;
+                // 日k线
+                this.chartData5.xAxis.data = data.kLineDay.times;
+                this.chartData5.series[0].data = data.kLineDay.orders;
+                this.chartData5.yAxis.name = "(笔)";
+                this.chartData5Order = data.kLineDay.orders;
+                this.chartData5Money = data.kLineDay.moneys;
+            })
+        },
         changeChart4(no){
             this.active4 = no;
             if(no == 0){
-                this.chartData4.series[0].data = [35, 50, 62, 55, 73, 76];
+                this.chartData4.series[0].data = this.chartData4Order;
+                this.chartData4.yAxis.name = "(笔)";
             }else{
-                this.chartData4.series[0].data = [22, 40, 80, 35, 88, 20];
+                this.chartData4.series[0].data = this.chartData4Money;
+                this.chartData4.yAxis.name = "(元)";
             }
         },
         changeChart5(no){
             this.active5 = no;
             if(no==0){
-                this.chartData5.series[0].data = [35, 50, 62, 55, 73, 76, 12, 30, 66, 90, 58, 78, 60, 54, 36, 
-                                                    33, 62, 28, 91, 55, 75, 78, 85, 36, 54, 15, 61, 84, 79, 80];
+                this.chartData5.series[0].data =  this.chartData5Order;
+                this.chartData5.yAxis.name = "(笔)";
             }else{
-                this.chartData5.series[0].data = [40, 33, 56, 54, 22, 35, 65, 97, 45, 12, 56, 89, 35, 65, 96, 
-                                                    35, 74, 83, 94, 42, 75, 35, 74, 46, 24, 27, 75, 43, 36, 56];
+                this.chartData5.series[0].data = this.chartData5Money;
+                this.chartData5.yAxis.name = "(元)";
             }
         }
     }

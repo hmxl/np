@@ -7,14 +7,14 @@
                     <div>
                         <p>合约运力</p>
                         <div>
-                            <span>65</span>
+                            <span>{{driverCnt.contract}}</span>
                             <span>辆</span>
                         </div>
                     </div>
                     <div>
                         <p>临时运力</p>
                         <div>
-                            <span>65</span>
+                            <span>{{driverCnt.temporary}}</span>
                             <span>辆</span>
                         </div>
                     </div>
@@ -22,15 +22,21 @@
                 <new-chart :screenWidth='screenWidth' :screenHeight='screenHeight' :registerMapData='registerMapData' :chartData='chartData1' no='1' class='chart1'></new-chart>
             </div>
             <div class="top-right">
-                <div class="pie-box">
-                    <div>
+                <!-- <div class="pie-box"> -->
+                    <div class="line-box">
+                    <!-- <div>
                         <div class="pie-title">今日订单占比</div>
                         <new-chart :screenWidth='screenWidth' :screenHeight='screenHeight' :chartData='chartData2' no='2' class='chart2'></new-chart>
                     </div>
                     <div>
                         <div class="pie-title">月订单占比</div>
                         <new-chart :screenWidth='screenWidth' :screenHeight='screenHeight' :chartData='chartData3' no='3' class='chart3'></new-chart>
+                    </div> -->
+                    <div class="btns">
+                        <div v-for="(item, index) in btns23" :key="index" :class="active23==index?'active':''" @click='changeChart23(index)'>{{item}}</div>
                     </div>
+                    <new-chart :screenWidth='screenWidth' :screenHeight='screenHeight' :chartData='chartData23' no='23' class='chart23'></new-chart>
+
                 </div>
                 <div class="line-box">
                     <div class="btns">
@@ -60,9 +66,12 @@ export default {
             screenHeight:document.documentElement.clientHeight,
             provincial:'',
             loadMap:'',
+            driverCnt:{},
             registerMapData:{},
+            btns23:["当日订单省份排名","当日月订单省份排名"],
             btns4:['订单量月度k线','交易额月度k线'],
             btns5:['订单量日k线','交易额日k线'],
+            active23:0,
             active4:0,
             active5:0,
             chartData1:{
@@ -180,154 +189,244 @@ export default {
                 ],
             },
             chartData2:{
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                grid:{
+                    left:'15%',
+                    right:'5%',
+                    top:'26%',
+                    bottom:'18%',
                 },
-                legend: {
-                    orient: 'horizontal',
-                    textStyle:{
-                        color:'#5d83da'
+                xAxis: {
+                    type:'category',
+                    data:[],
+                    axisLine: {
+                        lineStyle: {
+                            type: 'solid',
+                            color: '#5d83da',//轴线的颜色
+                            width:'1'//坐标线的宽度
+                        },
+                        symbol:['none', 'arrow'],//箭头
+                        symbolSize:[8,12],//箭头尺寸
+                        symbolOffset:[0,10],//箭头偏移
+                    }, 
+                    // 刻度方向
+                    axisTick: {
+                        inside:true
                     },
-                    bottom:0,
-                    left:"center",
-                    itemWidth:10,
-                    itemHeight:10,
-                    textStyle:{
-                        color:'#5d83da',
-                        fontSize:10
-                    }
+                    axisLabel:{
+					    interval:0,//横轴信息全部显示
+					    rotate:-40,//-30度角倾斜显示
+					}
                 },
-                series : [
+                yAxis: {
+                    type: "value",
+                    name:"(笔)",//单位
+                    nameLocation:"end",//单位位置
+                    axisLine: {
+                        lineStyle: {
+                            type: 'solid',
+                            color: '#5d83da',//轴线的颜色
+                            width:'1'//坐标线的宽度
+                        },
+                        symbol:['none', 'arrow'],
+                        symbolSize:[8,12],
+                        symbolOffset:10
+                    },
+                    axisTick: {
+                        inside:true
+                    },
+                    // 去除横向网格线
+                    splitLine:{show: false}
+                },
+                // 图表数据
+                series: [
                     {
-                        name:'今日订单',
-                        type:'pie',
-                        radius : '70%',
-                        center: ['50%', '45%'],
-                        data:[
-                            {value:60, name:'青岛市',
-                                itemStyle:{
-                                    color: {
-                                        type: 'linear',
-                                        x: 0,
-                                        y: 0,
-                                        x2: 1,
-                                        y2: 1,
-                                        colorStops: [{
-                                            offset: 0, color: '#0d90b4' // 0% 处的颜色
-                                        }, {
-                                            offset: 1, color: '#06bfd7' // 100% 处的颜色
-                                        }],
-                                    }
+                    type: "bar",
+                    barWidth:"60%",
+                    data:[],
+                    // 柱状图柱体
+                    itemStyle: {
+                        normal: {
+                            color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: "#01dcec"
+                                },
+                                {
+                                offset: 1,
+                                color: "#165789"
                                 }
-                            },
-                            {value:30, name:'泰安市',
-                                itemStyle:{
-                                    color:"#de9a00"
-                                }
-                            },
-                            {value:40, name:'潍坊市',
-                                itemStyle:{
-                                    color:"#6cfabe"
-                                }
-                            },
-                        ],
-                        roseType: 'radius',
-                        labelLine: {
-                            show:false
-                        },
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'inside',
-                                formatter: '{d}%',//模板变量有 {a}、{b}、{c}、{d}，分别表示系列名，数据名，数据值，百分比。{d}数据会根据value值计算百分比
-                                textStyle : {                   
-                                    align : 'center',
-                                    baseline : 'middle',
-                                    fontSize : 10,
-                                    fontWeight : 'bolder',
-                                    color:'#fff'
-                                }
-                            },
-                        },
-                        animationType: 'scale',
-                        animationEasing: 'elasticOut',
-                        animationDelay: function (idx) {
-                            return Math.random() * 200;
+                            ])
                         }
+                    },
+                    // 显示数据
+                    label:{
+                        show:true,
+                        position:"top",
+                        color:'#7bacef'
                     }
-                ]
+                }]
             },
             chartData3:{
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                grid:{
+                    left:'20%',
+                    right:'5%',
+                    top:'26%',
+                    bottom:'18%',
                 },
-                legend: {
-                    orient: 'horizontal',
-                    textStyle:{
-                        color:'#5d83da'
+                xAxis: {
+                    type:'category',
+                    data:[],
+                    axisLine: {
+                        lineStyle: {
+                            type: 'solid',
+                            color: '#5d83da',//轴线的颜色
+                            width:'1'//坐标线的宽度
+                        },
+                        symbol:['none', 'arrow'],//箭头
+                        symbolSize:[8,12],//箭头尺寸
+                        symbolOffset:[0,10],//箭头偏移
+                    }, 
+                    // 刻度方向
+                    axisTick: {
+                        inside:true
                     },
-                    bottom:0,
-                    left:"center",
-                    itemWidth:10,
-                    itemHeight:10,
-                    textStyle:{
-                        color:'#5d83da',
+                    axisLabel:{
+					    interval:0,//横轴信息全部显示
+					    rotate:-40,//-30度角倾斜显示
+					}
+                },
+                yAxis: {
+                    type: "value",
+                    name:"笔",//单位
+                    nameLocation:"end",//单位位置
+                    axisLine: {
+                        lineStyle: {
+                            type: 'solid',
+                            color: '#5d83da',//轴线的颜色
+                            width:'1'//坐标线的宽度
+                        },
+                        symbol:['none', 'arrow'],
+                        symbolSize:[8,12],
+                        symbolOffset:10
+                    },
+                    axisTick: {
+                        inside:true
+                    },
+                    // 去除横向网格线
+                    splitLine:{show: false}
+                },
+                // 图表数据
+                series: [
+                    {
+                    type: "bar",
+                    barWidth:"40%",
+                    data:[],
+                    // 柱状图柱体
+                    itemStyle: {
+                        normal: {
+                            color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: "#01dcec"
+                                },
+                                {
+                                offset: 1,
+                                color: "#165789"
+                                }
+                            ])
+                        }
+                    },
+                    // 显示数据
+                    label:{
+                        show:true,
+                        position:"top",
+                        color:'#7bacef'
+                    }
+                }]
+                
+            },
+            chartData23:{
+                textStyle:{
+                    color:"#5579ca",
+                    fontSize:10
+                },
+                grid:{
+                    left:'10%',
+                    right:'10%',
+                    top:'20%',
+                    bottom:'20%',
+                },
+                xAxis: {
+                    type:'category',
+                    data:[],
+                    axisLine: {
+                        lineStyle: {
+                            type: 'solid',
+                            color: '#5d83da',//轴线的颜色
+                            width:'1'//坐标线的宽度
+                        },
+                        symbol:['none', 'arrow'],//箭头
+                        symbolSize:[8,12],//箭头尺寸
+                        symbolOffset:[0,10],//箭头偏移
+                    }, 
+                    // 刻度方向
+                    axisTick: {
+                        inside:true
+                    }
+                },
+                yAxis: {
+                    type: "value",
+                    name:"(笔)",//单位
+                    nameLocation:"end",//单位位置
+                    axisLine: {
+                        lineStyle: {
+                            type: 'solid',
+                            color: '#5d83da',//轴线的颜色
+                            width:'1'//坐标线的宽度
+                        },
+                        symbol:['none', 'arrow'],
+                        symbolSize:[8,12],
+                        symbolOffset:10
+                    },
+                    axisTick: {
+                        inside:true
+                    },
+                    // 去除横向网格线
+                    splitLine:{show: false},
+                    axisLabel:{
                         fontSize:10
                     }
                 },
-                series : [
+                // 图表数据
+                series: [
                     {
-                        name:'今日订单',
-                        type:'pie',
-                        radius : '70%',
-                        center: ['50%', '45%'],
-                        data:[
-                            {value:600, name:'安徽省',itemStyle:{
-                                color: {
-                                    type: 'linear',
-                                    x: 0,
-                                    y: 0,
-                                    x2: 1,
-                                    y2: 0,
-                                    colorStops: [{
-                                        offset: 0, color: '#0d90b4' // 0% 处的颜色
-                                    }, {
-                                        offset: 1, color: '#06bfd7' // 100% 处的颜色
-                                    }],
+                    type: "bar",
+                    barWidth:"40%",
+                    data:[],
+                    // 柱状图柱体
+                    itemStyle: {
+                        normal: {
+                            color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: "#01dcec"
+                                },
+                                {
+                                offset: 1,
+                                color: "#165789"
                                 }
-                            }},
-                            {value:400, name:'山东省',itemStyle:{
-                                color:"#de9a00"
-                            }},
-                        ],
-                        roseType: 'radius',
-                        labelLine: {
-                            show:false
-                        },
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'inside',
-                                formatter: '{d}%',//模板变量有 {a}、{b}、{c}、{d}，分别表示系列名，数据名，数据值，百分比。{d}数据会根据value值计算百分比
-                                textStyle : {                   
-                                    align : 'center',
-                                    baseline : 'middle',
-                                    fontSize : 10,
-                                    fontWeight : 'bolder',
-                                    color:'#fff'
-                                }
-                            },
-                        },
-                        animationType: 'scale',
-                        animationEasing: 'elasticOut',
-                        animationDelay: function (idx) {
-                            return Math.random() * 200;
+                            ])
                         }
+                    },
+                    // 显示数据
+                    label:{
+                        show:true,
+                        position:"top",
+                        color:'#7bacef'
                     }
-                ]
+                }]
             },
+            chartData23Day:[],
+            chartData23Month:[],
+            orderName1:[],
+            orderName2:[],
             chartData4:{
                 textStyle:{
                     color:"#5579ca",
@@ -341,7 +440,7 @@ export default {
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['7月', '8月', '9月', '10月', '11月', '12月'],
+                    data: [],
                     axisLine: {
                         lineStyle: {
                             type: 'solid',
@@ -361,7 +460,7 @@ export default {
                 },
                 yAxis: {
                     type: 'value',
-                    name:"(万元)",
+                    name:"",
                     nameLocation:"end",
                     axisLine: {
                         lineStyle: {
@@ -382,7 +481,7 @@ export default {
                     }
                 },
                 series: [{
-                    data: [35, 50, 62, 55, 73, 76],
+                    data: [],
                     type: 'line',
                     stack: '销售量',  
                     itemStyle : {  
@@ -414,6 +513,8 @@ export default {
                     }
                 }]
             },
+            chartData4Order:[],
+            chartData4Money:[],
             chartData5:{
                 textStyle:{
                     color:"#5579ca",
@@ -427,9 +528,7 @@ export default {
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-                            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-                            '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
+                    data: [],
                     axisLine: {
                         lineStyle: {
                             type: 'solid',
@@ -470,8 +569,7 @@ export default {
                     }
                 },
                 series: [{
-                    data: [35, 50, 62, 55, 73, 76, 12, 30, 66, 90, 58, 78, 60, 54, 36, 
-                            33, 62, 28, 91, 55, 75, 78, 85, 36, 54, 15, 61, 84, 79, 80],
+                    data: [],
                     type: 'line',
                     stack: '销售量',  
                     itemStyle : {  
@@ -502,7 +600,9 @@ export default {
                             }
                     }
                 }]
-            }
+            },
+            chartData5Order:[],
+            chartData5Money:[],
         }
     },
     components:{
@@ -523,25 +623,82 @@ export default {
         this.loadMap = this.$route.query.loadMap;
         this.chartData1.geo.map = this.$route.query.provincial;
         this.loadProvincialMap(this.$route.query.loadMap);
-        
+        this.getData();
+        setInterval(()=>{this.getData()},10*60*1000);
     },
     methods:{
+        getData(){
+            this.$http.get(process.env.BASE_URL+"/api/operation/order",{params:{province:this.provincial+"省"}}).then((res)=>{
+                // console.log(res)
+                let data = res.data;
+                // 运力
+                this.driverCnt = data.driverCnt;
+                // 日订单 月订单(降序)
+                let orderName1 = [];
+                let dayOrder = [];
+                let orderName2 = [];
+                let monthOrder = [];
+                for(let i in data.dayOrder){
+                    let a = { value:data.dayOrder[i], name:i};
+                    let b = { value:data.monthOrder[i], name:i};
+                    dayOrder.push(a);
+                    monthOrder.push(b);
+                }
+                dayOrder.sort(function (a, b) { return b.value - a.value; });
+                monthOrder.sort(function (a, b) { return b.value - a.value; });
+                for(let i in dayOrder){
+                    orderName1.push(dayOrder[i].name);
+                    orderName2.push(monthOrder[i].name);
+                }
+                this.orderName1 = orderName1;
+                this.chartData23Day = dayOrder;
+                
+                this.orderName2 = orderName2;
+                this.chartData23Month = monthOrder;
+                this.chartData23.xAxis.data = orderName1;
+                this.chartData23.series[0].data = dayOrder;
+                // 月k线
+                this.chartData4.xAxis.data = data.kLineMonth.times;
+                this.chartData4.series[0].data = data.kLineMonth.orders;
+                this.chartData4.yAxis.name = "(笔)";
+                this.chartData4Order = data.kLineMonth.orders;
+                this.chartData4Money = data.kLineMonth.moneys;
+                // 日k线
+                this.chartData5.xAxis.data = data.kLineDay.times;
+                this.chartData5.series[0].data = data.kLineDay.orders;
+                this.chartData5.yAxis.name = "(笔)";
+                this.chartData5Order = data.kLineDay.orders;
+                this.chartData5Money = data.kLineDay.moneys;
+            });
+        },
+        changeChart23(no){
+            this.active23 = no;
+            if(no == 0){
+                this.chartData23.series[0].data = this.chartData23Day;
+                this.chartData23.xAxis.data = this.orderName1;
+            }else{
+                this.chartData23.series[0].data = this.chartData23Month;
+                this.chartData23.xAxis.data = this.orderName2;
+            }
+        },
         changeChart4(no){
             this.active4 = no;
             if(no == 0){
-                this.chartData4.series[0].data = [35, 50, 62, 55, 73, 76];
+                this.chartData4.series[0].data = this.chartData4Order;
+                this.chartData4.yAxis.name = "(笔)";
             }else{
-                this.chartData4.series[0].data = [22, 40, 80, 35, 88, 20];
+                this.chartData4.series[0].data = this.chartData4Money;
+                this.chartData4.yAxis.name = "(元)";
             }
         },
         changeChart5(no){
             this.active5 = no;
             if(no==0){
-                this.chartData5.series[0].data = [35, 50, 62, 55, 73, 76, 12, 30, 66, 90, 58, 78, 60, 54, 36, 
-                                                    33, 62, 28, 91, 55, 75, 78, 85, 36, 54, 15, 61, 84, 79, 80];
+                this.chartData5.series[0].data =  this.chartData5Order;
+                this.chartData5.yAxis.name = "笔";
             }else{
-                this.chartData5.series[0].data = [40, 33, 56, 54, 22, 35, 65, 97, 45, 12, 56, 89, 35, 65, 96, 
-                                                    35, 74, 83, 94, 42, 75, 35, 74, 46, 24, 27, 75, 43, 36, 56];
+                this.chartData5.series[0].data =  this.chartData5Money;
+                this.chartData5.yAxis.name = "元";
             }
         },
         loadProvincialMap(procincial){
@@ -655,14 +812,15 @@ export default {
                 }
                 >.line-box{
                     width: 98%;
-                    height: 49%;
+                    height: 48%;
                     margin:auto;
+                    margin-top:1%;
                     padding:1%;
                     box-sizing: border-box;
                     border:1px solid #1e3f85;
                     box-shadow: 1px 1px 5px #1e3f85;
                     background-color:rgba(21, 34, 74, 0.5);
-                    >.chart4{
+                    >.chart23,.chart4{
                         width: 100%;
                         height: 90%;
                     }

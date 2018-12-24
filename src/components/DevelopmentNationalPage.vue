@@ -915,6 +915,7 @@ export default {
                             width: 100%;
                             display: flex;
                             justify-content:center;
+                            cursor: pointer;
                             >div{
                                 width:35%;
                                 text-align: center;

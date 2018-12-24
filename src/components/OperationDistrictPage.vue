@@ -172,17 +172,94 @@ export default {
                 ],
             },
             chartData2:{
+                // tooltip : {
+                //     trigger: 'item',
+                //     formatter: "{a} <br/>{b} : {c} ({d}%)"
+                // },
+                // legend: {
+                //     orient: 'horizontal',
+                //     textStyle:{
+                //         color:'#5d83da'
+                //     },
+                //     bottom:0,
+                //     left:"center",
+                //     itemWidth:10,
+                //     itemHeight:10,
+                //     textStyle:{
+                //         color:'#5d83da',
+                //         fontSize:10
+                //     }
+                // },
+                // series : [
+                //     {
+                //         name:'今日订单',
+                //         type:'pie',
+                //         radius : '70%',
+                //         center: ['50%', '45%'],
+                //         data:[
+                //             {value:60, name:'青岛市',
+                //                 itemStyle:{
+                //                     color: {
+                //                         type: 'linear',
+                //                         x: 0,
+                //                         y: 0,
+                //                         x2: 1,
+                //                         y2: 1,
+                //                         colorStops: [{
+                //                             offset: 0, color: '#0d90b4' // 0% 处的颜色
+                //                         }, {
+                //                             offset: 1, color: '#06bfd7' // 100% 处的颜色
+                //                         }],
+                //                     }
+                //                 }
+                //             },
+                //             {value:30, name:'泰安市',
+                //                 itemStyle:{
+                //                     color:"#de9a00"
+                //                 }
+                //             },
+                //             {value:40, name:'潍坊市',
+                //                 itemStyle:{
+                //                     color:"#6cfabe"
+                //                 }
+                //             },
+                //         ],
+                //         roseType: 'radius',
+                //         labelLine: {
+                //             show:false
+                //         },
+                //         label: {
+                //             normal: {
+                //                 show: true,
+                //                 position: 'inside',
+                //                 formatter: '{d}%',//模板变量有 {a}、{b}、{c}、{d}，分别表示系列名，数据名，数据值，百分比。{d}数据会根据value值计算百分比
+                //                 textStyle : {                   
+                //                     align : 'center',
+                //                     baseline : 'middle',
+                //                     fontSize : 10,
+                //                     fontWeight : 'bolder',
+                //                     color:'#fff'
+                //                 }
+                //             },
+                //         },
+                //         animationType: 'scale',
+                //         animationEasing: 'elasticOut',
+                //         animationDelay: function (idx) {
+                //             return Math.random() * 200;
+                //         }
+                //     }
+                // ]
                 tooltip : {
                     trigger: 'item',
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
                 legend: {
-                    orient: 'horizontal',
+                    orient: 'vertical',
                     textStyle:{
                         color:'#5d83da'
                     },
-                    bottom:0,
-                    left:"center",
+                    x:"left",
+                    top:"5%",
                     itemWidth:10,
                     itemHeight:10,
                     textStyle:{
@@ -194,43 +271,26 @@ export default {
                     {
                         name:'今日订单',
                         type:'pie',
-                        radius : '70%',
-                        center: ['50%', '45%'],
+                        radius: ['50%', '70%'],
+                        center: ['80%', '50%'],
                         data:[
-                            {value:60, name:'青岛市',
-                                itemStyle:{
-                                    color: {
-                                        type: 'linear',
-                                        x: 0,
-                                        y: 0,
-                                        x2: 1,
-                                        y2: 1,
-                                        colorStops: [{
-                                            offset: 0, color: '#0d90b4' // 0% 处的颜色
-                                        }, {
-                                            offset: 1, color: '#06bfd7' // 100% 处的颜色
-                                        }],
-                                    }
-                                }
-                            },
-                            {value:30, name:'泰安市',
-                                itemStyle:{
-                                    color:"#de9a00"
-                                }
-                            },
-                            {value:40, name:'潍坊市',
-                                itemStyle:{
-                                    color:"#6cfabe"
-                                }
-                            },
+                            {value:60, name:'青岛市'},
+                            {value:30, name:'泰安市'},
+                            {value:40, name:'潍坊市'},
+                            {value:60, name:'XX市'},
+                            {value:20, name:'XX1市'},
+                            {value:20, name:'XX2市'},
+                            {value:20, name:'XX3市'},
+                            {value:20, name:'XX4市'},
+                            {value:20, name:'XX5市'},
+                            {value:20, name:'XX6市'},
                         ],
-                        roseType: 'radius',
                         labelLine: {
-                            show:false
+                            show:false,
                         },
                         label: {
                             normal: {
-                                show: true,
+                                show: false,
                                 position: 'inside',
                                 formatter: '{d}%',//模板变量有 {a}、{b}、{c}、{d}，分别表示系列名，数据名，数据值，百分比。{d}数据会根据value值计算百分比
                                 textStyle : {                   
@@ -242,26 +302,89 @@ export default {
                                 }
                             },
                         },
-                        animationType: 'scale',
-                        animationEasing: 'elasticOut',
-                        animationDelay: function (idx) {
-                            return Math.random() * 200;
-                        }
                     }
                 ]
             },
             chartData3:{
+                // tooltip : {
+                //     trigger: 'item',
+                //     formatter: "{a} <br/>{b} : {c} ({d}%)"
+                // },
+                // legend: {
+                //     orient: 'horizontal',
+                //     textStyle:{
+                //         color:'#5d83da'
+                //     },
+                //     bottom:0,
+                //     left:"center",
+                //     itemWidth:10,
+                //     itemHeight:10,
+                //     textStyle:{
+                //         color:'#5d83da',
+                //         fontSize:10
+                //     }
+                // },
+                // series : [
+                //     {
+                //         name:'今日订单',
+                //         type:'pie',
+                //         radius : '70%',
+                //         center: ['50%', '45%'],
+                //         data:[
+                //             {value:600, name:'安徽省',itemStyle:{
+                //                 color: {
+                //                     type: 'linear',
+                //                     x: 0,
+                //                     y: 0,
+                //                     x2: 1,
+                //                     y2: 0,
+                //                     colorStops: [{
+                //                         offset: 0, color: '#0d90b4' // 0% 处的颜色
+                //                     }, {
+                //                         offset: 1, color: '#06bfd7' // 100% 处的颜色
+                //                     }],
+                //                 }
+                //             }},
+                //             {value:400, name:'山东省',itemStyle:{
+                //                 color:"#de9a00"
+                //             }},
+                //         ],
+                //         roseType: 'radius',
+                //         labelLine: {
+                //             show:false
+                //         },
+                //         label: {
+                //             normal: {
+                //                 show: true,
+                //                 position: 'inside',
+                //                 formatter: '{d}%',//模板变量有 {a}、{b}、{c}、{d}，分别表示系列名，数据名，数据值，百分比。{d}数据会根据value值计算百分比
+                //                 textStyle : {                   
+                //                     align : 'center',
+                //                     baseline : 'middle',
+                //                     fontSize : 10,
+                //                     fontWeight : 'bolder',
+                //                     color:'#fff'
+                //                 }
+                //             },
+                //         },
+                //         animationType: 'scale',
+                //         animationEasing: 'elasticOut',
+                //         animationDelay: function (idx) {
+                //             return Math.random() * 200;
+                //         }
+                //     }
+                // ]
                 tooltip : {
                     trigger: 'item',
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
                 legend: {
-                    orient: 'horizontal',
+                    orient: 'vertical',
                     textStyle:{
                         color:'#5d83da'
                     },
-                    bottom:0,
-                    left:"center",
+                    x:"left",
+                    top:"5%",
                     itemWidth:10,
                     itemHeight:10,
                     textStyle:{
@@ -273,34 +396,26 @@ export default {
                     {
                         name:'今日订单',
                         type:'pie',
-                        radius : '70%',
-                        center: ['50%', '45%'],
+                        radius: ['50%', '70%'],
+                        center: ['80%', '50%'],
                         data:[
-                            {value:600, name:'安徽省',itemStyle:{
-                                color: {
-                                    type: 'linear',
-                                    x: 0,
-                                    y: 0,
-                                    x2: 1,
-                                    y2: 0,
-                                    colorStops: [{
-                                        offset: 0, color: '#0d90b4' // 0% 处的颜色
-                                    }, {
-                                        offset: 1, color: '#06bfd7' // 100% 处的颜色
-                                    }],
-                                }
-                            }},
-                            {value:400, name:'山东省',itemStyle:{
-                                color:"#de9a00"
-                            }},
+                            {value:60, name:'青岛市'},
+                            {value:30, name:'泰安市'},
+                            {value:40, name:'潍坊市'},
+                            {value:60, name:'XX市'},
+                            {value:20, name:'XX1市'},
+                            {value:20, name:'XX2市'},
+                            {value:20, name:'XX3市'},
+                            {value:20, name:'XX4市'},
+                            {value:20, name:'XX5市'},
+                            {value:20, name:'XX6市'},
                         ],
-                        roseType: 'radius',
                         labelLine: {
-                            show:false
+                            show:false,
                         },
                         label: {
                             normal: {
-                                show: true,
+                                show: false,
                                 position: 'inside',
                                 formatter: '{d}%',//模板变量有 {a}、{b}、{c}、{d}，分别表示系列名，数据名，数据值，百分比。{d}数据会根据value值计算百分比
                                 textStyle : {                   
@@ -312,11 +427,6 @@ export default {
                                 }
                             },
                         },
-                        animationType: 'scale',
-                        animationEasing: 'elasticOut',
-                        animationDelay: function (idx) {
-                            return Math.random() * 200;
-                        }
                     }
                 ]
             },

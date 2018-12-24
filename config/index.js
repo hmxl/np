@@ -10,7 +10,18 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+      proxyTable: {
+        "/proxyRequest": {
+          target: "http://polaris.cunniao.cn", // 定义真实服务器地址
+          changeOrigin: true,
+          pathRewrite: { //地址重写
+            // key ： 描述重写规则 （正则表达式）
+            // value :　重写的结果
+            "^/proxyRequest": ""
+          },
+          logLevel: "debug" // 调整服务器启动日志
+        }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

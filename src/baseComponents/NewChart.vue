@@ -5,7 +5,7 @@
 <script>
     import cityMap from "../../static/map/citymap"
     export default {
-        // 父组件传值接收[配置参数，图表id，屏幕宽度]
+        // 父组件传值接收[配置参数，图表id，屏幕宽度，屏幕高度，请求加载地图的地区]
         props:['chartData',"no","screenWidth","screenHeight","registerMapData"],
         data() {
             return {
@@ -63,6 +63,7 @@
             drawLine() {
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = this.$echarts.init(document.getElementById('myechart'+this.no));
+                myChart.clear();
                 // 绘制图表
                 myChart.setOption(this.chartData);
             },
@@ -74,14 +75,14 @@
                 if(options.geo != undefined && (options.geo.map == 'china' || options.geo.map in this.provinces )){
                     let myChart = this.$echarts.init(document.getElementById('myechart'+this.no));
                     myChart.on('click', function(params){
-                        that.bindTo(params.name);
+                        // that.bindTo(params.name);
                         // 判断可否跳转
-                        // for(let a in options.series[0].data){
-                        //     // console.log(options.series[0].data[a].name)
-                        //     if(options.series[0].data[a].name == params.name){
-                        //         that.bindTo(options.series[0].data[a].name);
-                        //     }
-                        // }
+                        for(let a in options.series[0].data){
+                            // console.log(options.series[0].data[a].name)
+                            if(options.series[0].data[a].name == params.name){
+                                that.bindTo(options.series[0].data[a].name);
+                            }
+                        }
                     });
                 }
             },
